@@ -1,0 +1,81 @@
+name.vec;alternative;by_removal;n_removal;by_fertility;n_fertility;predation;rate;recovery;sd
+v2026;f;0;0;50;25;With predation;Max;NA;NA
+v2026;f;0;0;50;25;With predation;Mean;NA;NA
+v2026;f;0;0;50;25;Without predation;Max;1;0
+v2026;f;0;0;50;25;Without predation;Mean;1,842;1,56266434005495
+v2026;f;0;0;50;50;With predation;Max;NA;NA
+v2026;f;0;0;50;50;With predation;Mean;NA;NA
+v2026;f;0;0;50;50;Without predation;Max;1;0
+v2026;f;0;0;50;50;Without predation;Mean;2,34;2,11597606541729
+v2026;f;0;0;50;75;With predation;Max;NA;NA
+v2026;f;0;0;50;75;With predation;Mean;NA;NA
+v2026;f;0;0;50;75;Without predation;Max;1;0
+v2026;f;0;0;50;75;Without predation;Mean;2,424;1,75110157141922
+v2026;f;0;0;50;100;With predation;Max;NA;NA
+v2026;f;0;0;50;100;With predation;Mean;NA;NA
+v2026;f;0;0;50;100;Without predation;Max;1;0
+v2026;f;0;0;50;100;Without predation;Mean;2,644;1,81765556238991
+v2026;rf;50;25;0;0;With predation;Max;NA;NA
+v2026;rf;50;25;0;0;With predation;Mean;NA;NA
+v2026;rf;50;25;0;0;Without predation;Max;1;0
+v2026;rf;50;25;0;0;Without predation;Mean;3,074;2,24200293360839
+v2026;rf;50;50;0;0;With predation;Max;NA;NA
+v2026;rf;50;50;0;0;With predation;Mean;NA;NA
+v2026;rf;50;50;0;0;Without predation;Max;2;0
+v2026;rf;50;50;0;0;Without predation;Mean;5,164;2,36818931702737
+v2026;rf;50;75;0;0;With predation;Max;NA;NA
+v2026;rf;50;75;0;0;With predation;Mean;NA;NA
+v2026;rf;50;75;0;0;Without predation;Max;3;0
+v2026;rf;50;75;0;0;Without predation;Mean;7,848;2,66441254095096
+v2026;rf;50;100;0;0;With predation;Max;NA;NA
+v2026;rf;50;100;0;0;With predation;Mean;NA;NA
+v2026;rf;50;100;0;0;Without predation;Max;5;0
+v2026;rf;50;100;0;0;Without predation;Mean;10,024;2,85442103391874
+v2026;rf + f;50;12;50;12;With predation;Max;NA;NA
+v2026;rf + f;50;12;50;12;With predation;Mean;NA;NA
+v2026;rf + f;50;12;50;12;Without predation;Max;1;0
+v2026;rf + f;50;12;50;12;Without predation;Mean;2,152;1,59812515405272
+v2026;rf + f;50;25;50;25;With predation;Max;NA;NA
+v2026;rf + f;50;25;50;25;With predation;Mean;NA;NA
+v2026;rf + f;50;25;50;25;Without predation;Max;1;0
+v2026;rf + f;50;25;50;25;Without predation;Mean;3,246;2,06737322806702
+v2026;rf + f;50;37;50;37;With predation;Max;NA;NA
+v2026;rf + f;50;37;50;37;With predation;Mean;NA;NA
+v2026;rf + f;50;37;50;37;Without predation;Max;2;0
+v2026;rf + f;50;37;50;37;Without predation;Mean;4,666;2,46304225589181
+v2026;rf + f;50;50;50;50;With predation;Max;NA;NA
+v2026;rf + f;50;50;50;50;With predation;Mean;NA;NA
+v2026;rf + f;50;50;50;50;Without predation;Max;3;0
+v2026;rf + f;50;50;50;50;Without predation;Mean;6,06;2,54742590815023
+v2026;rp;50;25;0;0;With predation;Max;NA;NA
+v2026;rp;50;25;0;0;With predation;Mean;NA;NA
+v2026;rp;50;25;0;0;Without predation;Max;1;0
+v2026;rp;50;25;0;0;Without predation;Mean;2,87;2,21425062077969
+v2026;rp;50;50;0;0;With predation;Max;NA;NA
+v2026;rp;50;50;0;0;With predation;Mean;NA;NA
+v2026;rp;50;50;0;0;Without predation;Max;2;0
+v2026;rp;50;50;0;0;Without predation;Mean;4,684;2,35355527763632
+v2026;rp;50;75;0;0;With predation;Max;NA;NA
+v2026;rp;50;75;0;0;With predation;Mean;NA;NA
+v2026;rp;50;75;0;0;Without predation;Max;3;0
+v2026;rp;50;75;0;0;Without predation;Mean;6,966;2,64477478574919
+v2026;rp;50;100;0;0;With predation;Max;NA;NA
+v2026;rp;50;100;0;0;With predation;Mean;NA;NA
+v2026;rp;50;100;0;0;Without predation;Max;4;0
+v2026;rp;50;100;0;0;Without predation;Mean;9,042;2,97083957418624
+v2026;rp + f;50;12;50;12;With predation;Max;NA;NA
+v2026;rp + f;50;12;50;12;With predation;Mean;NA;NA
+v2026;rp + f;50;12;50;12;Without predation;Max;1;0
+v2026;rp + f;50;12;50;12;Without predation;Mean;2,26;1,80413686277934
+v2026;rp + f;50;25;50;25;With predation;Max;NA;NA
+v2026;rp + f;50;25;50;25;With predation;Mean;NA;NA
+v2026;rp + f;50;25;50;25;Without predation;Max;1;0
+v2026;rp + f;50;25;50;25;Without predation;Mean;3,336;2,15601502814874
+v2026;rp + f;50;37;50;37;With predation;Max;NA;NA
+v2026;rp + f;50;37;50;37;With predation;Mean;NA;NA
+v2026;rp + f;50;37;50;37;Without predation;Max;2;0
+v2026;rp + f;50;37;50;37;Without predation;Mean;4,468;2,48219632527211
+v2026;rp + f;50;50;50;50;With predation;Max;NA;NA
+v2026;rp + f;50;50;50;50;With predation;Mean;NA;NA
+v2026;rp + f;50;50;50;50;Without predation;Max;2;0
+v2026;rp + f;50;50;50;50;Without predation;Mean;5,898;2,67692507472873
