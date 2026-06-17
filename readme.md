@@ -1,5 +1,5 @@
-# Data and R scripts for the article Bostal et al 2026 
-## MAINTAINING LOW DENSITIES OR ACHIEVING ERADICATION? EVALUATING FERAL HORSE MANAGEMENT STRATEGIES UNDER DIFFERENT PREDATION SCENARIOS.
+# Data and R scripts for the article Bostal *et al.* 2026 
+## *Maintaining Low Densities or Achieving Eradication? Evaluating Feral Horse Management Strategies under Different Predation Scenarios*
 
 Authors:
 
