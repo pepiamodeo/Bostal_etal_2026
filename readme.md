@@ -1,15 +1,4 @@
-# Data and R scripts for the article Bostal *et al.* 2026 
-## *Maintaining Low Densities or Achieving Eradication? Evaluating Feral Horse Management Strategies under Different Predation Scenarios*
-
-Authors:
-
-Bostal Franco
-
-Amodeo Martín R.
-
-Scorolli Alberto L. 
-
-Zalba Sergio M.
+# Data and R scripts for the article *Maintaining Low Densities or Achieving Eradication? Evaluating Feral Horse Management Strategies under Different Predation Scenarios* 2026
 
 This repository will be preserved by Zenodo at publication
 
