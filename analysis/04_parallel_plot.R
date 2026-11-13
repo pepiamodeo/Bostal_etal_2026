@@ -12,20 +12,32 @@ index$alternative <- as.factor(index$alternative)
 index$predation <- as.factor(index$predation)
 index$rate <- as.factor(index$rate)
 
+
 index <- index %>%
   group_by(name.vec, by_removal, n_removal, by_fertility, n_fertility,
            predation, rate) %>%
   mutate(
     management_effort = n_removal * by_removal + n_fertility * by_fertility,
     scenario = case_when(
-      predation == "With predation" & rate == "Mean" ~ "With predation\nStochastic mean",
-      predation == "With predation" & rate == "Max"  ~ "With predation\nDeterministic max",
-      predation == "Without predation" & rate == "Mean" ~ "Without predation\nStochastic mean",
-      predation == "Without predation" & rate == "Max"  ~ "Without predation\nDeterministic max"),
-    scenario = factor(scenario, levels = c("Without predation\nDeterministic max", "Without predation\nStochastic mean", 
-                                           "With predation\nDeterministic max", "With predation\nStochastic mean")),
-    alt_me = paste0(alternative, " ", pmax(by_removal, by_fertility),"/",pmax(n_removal, n_fertility))) %>%
+      predation == "With puma" & rate == "Mean_sto" ~ "With puma\nStochastic mean",
+      predation == "With puma" & rate == "Mean" ~ "With puma\nDeterministic mean",
+      predation == "With puma" & rate == "Max" ~ "With puma\nDeterministic max",
+      predation == "Without puma" & rate == "Mean_sto" ~ "Without puma\nStochastic mean",
+      predation == "Without puma" & rate == "Mean" ~ "Without puma\nDeterministic mean",
+      predation == "Without puma" & rate == "Max" ~ "Without puma\nDeterministic max"
+    ),
+    scenario = factor(scenario, levels = c(
+      "Without puma\nDeterministic max",
+      "Without puma\nDeterministic mean",
+      "Without puma\nStochastic mean",
+      "With puma\nDeterministic max",
+      "With puma\nDeterministic mean",
+      "With puma\nStochastic mean"
+    )),
+    alt_me = paste0(alternative, " ", pmax(by_removal, by_fertility), "/", pmax(n_removal, n_fertility))
+  ) %>%
   ungroup()
+
 
 eti_10 <- index %>%
   filter(name.vec == "v2026") %>%
@@ -59,7 +71,7 @@ eti_plot <- eti_table %>%
 eti_plot <- eti_plot %>%
   mutate(rank_plot = ifelse(rank > 10, 11, rank))
 
-letters_custom <- LETTERS[9:26]  # i hasta z
+letters_custom <- LETTERS[8:26]  # h hasta z
 
 eti_plot <- eti_plot %>%
   mutate(
@@ -73,25 +85,59 @@ leg <- leg %>% arrange(letter)
 
 eti_plot <- eti_plot %>% arrange(letter)
 
+
+ordenes <- list(
+  
+  A = c("Without puma\nDeterministic max", "Without puma\nDeterministic mean", "Without puma\nStochastic mean",
+        "With puma\nDeterministic max", "With puma\nDeterministic mean", "With puma\nStochastic mean"),
+  
+  B = c("With puma\nDeterministic max", "With puma\nDeterministic mean", "With puma\nStochastic mean",
+        "Without puma\nDeterministic max", "Without puma\nDeterministic mean", "Without puma\nStochastic mean"),
+  
+  C = c("Without puma\nStochastic mean", "Without puma\nDeterministic mean", "Without puma\nDeterministic max",
+        "With puma\nStochastic mean", "With puma\nDeterministic mean", "With puma\nDeterministic max"),
+  
+  D = c("With puma\nStochastic mean", "With puma\nDeterministic mean", "With puma\nDeterministic max",
+        "Without puma\nStochastic mean", "Without puma\nDeterministic mean", "Without puma\nDeterministic max"),
+  
+  E = c("Without puma\nDeterministic max", "With puma\nDeterministic max", 
+        "Without puma\nDeterministic mean", "With puma\nDeterministic mean",
+        "Without puma\nStochastic mean", "With puma\nStochastic mean"),
+  
+  F = c("With puma\nDeterministic max", "Without puma\nDeterministic max",
+        "With puma\nDeterministic mean", "Without puma\nDeterministic mean",
+        "With puma\nStochastic mean", "Without puma\nStochastic mean"),
+  
+  G = c("Without puma\nStochastic mean", "With puma\nStochastic mean",
+        "Without puma\nDeterministic mean", "With puma\nDeterministic mean",
+        "Without puma\nDeterministic max", "With puma\nDeterministic max"),
+  
+  H = c("With puma\nStochastic mean", "Without puma\nStochastic mean",
+        "With puma\nDeterministic mean", "Without puma\nDeterministic mean",
+        "With puma\nDeterministic max", "Without puma\nDeterministic max"),
+  
+  I = c("Without puma\nDeterministic max", "Without puma\nStochastic mean", "Without puma\nDeterministic mean", 
+        "With puma\nDeterministic max", "With puma\nStochastic mean", "With puma\nDeterministic mean"))
+
 eti_rank_plot <- ggplot(eti_plot, aes(x = scenario, y = rank, 
-                     group = alt_me, label = letter)) +
+                                      group = alt_me, label = letter)) +
   geom_line(aes(color = alt_me), alpha = 1, size = 2, show.legend = FALSE) +
   geom_point(aes(color = alt_me), alpha = 1, size = 7,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
   scale_y_reverse(breaks = 1:10) +
-  scale_x_discrete(expand = c(0.05, 0.05)) + 
+  scale_x_discrete(limits = ordenes[["I"]], expand = c(0.05, 0.05)) +
   coord_cartesian(ylim = c(1,10)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
                "#fb9a99","#e31a1c","#fdbf6f","#ff7f00",
-               "#cab2d6","#6a3d9a","#b15928","#8c510a"),
+               "#cab2d6","#6a3d9a","#b15928","#8c510a", "black"),
     breaks = leg$alt_me, labels = leg$alt_me) +
-  labs(x = "Scenario", y = "Rank") + 
+  labs(x = "Demographic setting", y = "Rank") +
   guides(color = guide_legend(override.aes = list(label = unique(eti_plot$letter),
                                                   size = 5))) +
   theme_minimal() +
-  theme(panel.grid.minor.y = element_blank()) + 
+  theme(panel.grid.minor.y = element_blank()) +
   theme(legend.title = element_blank(),
         axis.text = element_text(color = "black", family = "Calibri", size = 9),
         axis.title = element_text(family = "Calibri", size = 9),
@@ -105,13 +151,14 @@ eti_rank_plot <- ggplot(eti_plot, aes(x = scenario, y = rank,
     legend.position = "right",
     legend.justification = "top")
 
-ggsave(plot=eti_rank_plot,"./fig/eti_rank_plot.tiff",width=150,height=100,units="mm",
+eti_rank_plot
+ggsave(plot=eti_rank_plot,"./fig/eti_rank_plot_6_11.tiff",width=150,height=100,units="mm",
        dpi = 600,compression="lzw")
 
 #IEM####
 
 mti_table <- index %>%
-  filter(name.vec == "vlowdensity" & Rm > 0.03) %>%
+  filter(name.vec == "vlowdensity" & Rm > 1/30) %>%
   group_by(scenario) %>%
   arrange(desc(MTI), .by_group = TRUE) %>%
   mutate(rank = row_number()) %>%
@@ -138,20 +185,21 @@ leg_mti <- leg_mti %>% arrange(letter)
 
 mti_plot <- mti_plot %>% arrange(letter)
 
-mti_rank_plot <- ggplot(mti_plot, aes(x = scenario, y = rank, 
+
+mti_rank_plot <- ggplot(mti_plot, aes(x = scenario, y = rank_plot, 
                                       group = alt_me, label = letter)) +
-  geom_line(aes(color = alt_me), alpha = 1, size = 2, show.legend = FALSE) +
+  #geom_line(aes(color = alt_me), alpha = 1, size = 2, show.legend = FALSE) +
   geom_point(aes(color = alt_me), alpha = 1, size = 7,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
-  scale_y_reverse(breaks = 1:5) +
-  scale_x_discrete(expand = c(0.05, 0.05), drop = FALSE) + 
-  coord_cartesian(ylim = c(1,5)) +
+  scale_y_reverse(breaks = 1:6) +
+  scale_x_discrete(limits = ordenes[["I"]], expand = c(0.05, 0.05), drop = FALSE) + 
+  coord_cartesian(ylim = c(1,6)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
-               "#fb9a99","#e31a1c","#fdbf6f","#ff7f00"),
+               "#fb9a99","#e31a1c","#fdbf6f","#ff7f00", "black"),
     breaks = leg_mti$alt_me, labels = leg_mti$alt_me) +
-  labs(x = "Scenario", y = "Rank") + 
+  labs(x = "Demographic setting", y = "Rank") + 
   guides(color = guide_legend(override.aes = list(label = unique(mti_plot$letter),
                                                   size = 5))) +
   theme_minimal() +
@@ -168,8 +216,93 @@ mti_rank_plot <- ggplot(mti_plot, aes(x = scenario, y = rank,
     legend.text = element_text(size = 9),
     legend.position = "right",
     legend.justification = "top")
+
 mti_rank_plot        
+ggsave(plot=mti_rank_plot,"./fig/mti_rank_plot_6_11.tiff",width=150,height=80,units="mm",
+       dpi = 600,compression="lzw")
 
 
-ggsave(plot=mti_rank_plot,"./fig/mti_rank_plot.tiff",width=150,height=80,units="mm",
+
+#SPANISH
+es_escenarios <- c(
+  "Without puma\nDeterministic max" = "Sin puma\nMáximo\ndeterminístico",
+  "Without puma\nDeterministic mean" = "Sin puma\nMedia\ndeterminística",
+  "Without puma\nStochastic mean" = "Sin puma\nMedia\nestocástica",
+  "With puma\nDeterministic max" = "Con puma\nMáximo\ndeterminístico",
+  "With puma\nDeterministic mean" = "Con puma\nMedia\ndeterminística",
+  "With puma\nStochastic mean" = "Con puma\nMedia\nestocástica"
+)
+
+
+
+eti_rank_plot_es <- ggplot(eti_plot, aes(x = scenario, y = rank, 
+                                      group = alt_me, label = letter)) +
+  geom_line(aes(color = alt_me), alpha = 1, size = 2, show.legend = FALSE) +
+  geom_point(aes(color = alt_me), alpha = 1, size = 7,
+             key_glyph = draw_key_text) +
+  geom_text(size = 3) +
+  scale_y_reverse(breaks = 1:10) +
+  scale_x_discrete(limits = ordenes[["I"]], labels = es_escenarios, expand = c(0.05, 0.05)) +
+  coord_cartesian(ylim = c(1,10)) +
+  scale_color_manual(
+    values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
+               "#fb9a99","#e31a1c","#fdbf6f","#ff7f00",
+               "#cab2d6","#6a3d9a","#b15928","#8c510a", "black"),
+    breaks = leg$alt_me, labels = leg$alt_me) +
+  labs(x = "Escenario", y = "Rango") +
+  guides(color = guide_legend(override.aes = list(label = unique(eti_plot$letter),
+                                                  size = 5))) +
+  theme_minimal() +
+  theme(panel.grid.minor.y = element_blank()) +
+  theme(legend.title = element_blank(),
+        axis.text = element_text(color = "black", family = "Calibri", size = 9),
+        axis.title = element_text(family = "Calibri", size = 9),
+        text = element_text(color = "black", family = "Calibri", size = 9)) +
+  theme(
+    legend.key.width = unit(0.9, "cm"),
+    legend.key.height = unit(0.5, "cm"),
+    legend.box.margin = margin(0, 0, 0, 0),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.text = element_text(size = 9),
+    legend.position = "right",
+    legend.justification = "top")
+
+eti_rank_plot_es
+ggsave(plot=eti_rank_plot_es,"./fig/eti_rank_plot_es_6_11.tiff",width=150,height=100,units="mm",
+       dpi = 600,compression="lzw")
+
+
+mti_rank_plot_es <- ggplot(mti_plot, aes(x = scenario, y = rank_plot, 
+                                      group = alt_me, label = letter)) +
+  #geom_line(aes(color = alt_me), alpha = 1, size = 2, show.legend = FALSE) +
+  geom_point(aes(color = alt_me), alpha = 1, size = 7,
+             key_glyph = draw_key_text) +
+  geom_text(size = 3) +
+  scale_y_reverse(breaks = 1:6) +
+  scale_x_discrete(limits = ordenes[["I"]], labels = es_escenarios, expand = c(0.05, 0.05)) +
+  coord_cartesian(ylim = c(1,6)) +
+  scale_color_manual(
+    values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
+               "#fb9a99","#e31a1c","#fdbf6f","#ff7f00", "black"),
+    breaks = leg_mti$alt_me, labels = leg_mti$alt_me) +
+  labs(x = "Escenario", y = "Rango") + 
+  guides(color = guide_legend(override.aes = list(label = unique(mti_plot$letter),
+                                                  size = 5))) +
+  theme_minimal() +
+  theme(panel.grid.minor.y = element_blank()) + 
+  theme(legend.title = element_blank(),
+        axis.text = element_text(color = "black", family = "Calibri", size = 9),
+        axis.title = element_text(color = "black", family = "Calibri", size = 9),
+        text = element_text(color = "black", family = "Calibri", size = 9)) +
+  theme(
+    legend.key.width = unit(0.9, "cm"),
+    legend.key.height = unit(0.5, "cm"),
+    legend.box.margin = margin(0, 0, 0, 0),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.text = element_text(size = 9),
+    legend.position = "right",
+    legend.justification = "top")
+mti_rank_plot_es        
+
+ggsave(plot=mti_rank_plot_es,"./fig/mti_rank_plot_es_6_11.tiff",width=150,height=80,units="mm",
        dpi = 600,compression="lzw")

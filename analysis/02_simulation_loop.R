@@ -1,8 +1,11 @@
+
+rm(list=ls())
+
 #Library
 
 fig <- list.files("./fig/", full.names = TRUE)
 
-file.remove(fig)
+#file.remove(fig)
 
 library(ggplot2)
 library(reshape2)
@@ -22,8 +25,9 @@ colnames(recovery_df) <- c(
 
 index <- data.frame(matrix(ncol = 16, nrow = 0))
 colnames(index) <- c(
-  "name.vec", "alternative", "by_removal", "n_removal", "by_fertility", 
-  "n_fertility", "predation", "rasa", "Er", "Ef", "Rm", "ext50", "Re", "Erf", "IEM", "IER")
+  "name.vec", "alternative", "by_removal", "n_removal", "by_fertility",
+  "n_fertility", "predation", "rate", "Er", "Ef", "Rm", "Pqext50",
+  "Re", "Erf", "ETI", "MTI")
 
 # simulation settings
 vec <- list(v2026 = c(53, 8, 4, 253), vlowdensity = c(13, 12, 10, 60))
@@ -42,7 +46,7 @@ management <- list(
   # no management
   c(0, 0, 0, 0),
   # removal
-  c(1, 25, 0, 0), c(1, 50, 0, 0), c(1, 75, 0, 0), c(1, 100, 0, 0),
+  c(1, 25, 0, 0), c(1, 25, 0, 0), c(1, 50, 0, 0), c(1, 75, 0, 0), c(1, 100, 0, 0),
   c(2, 25, 0, 0), c(2, 50, 0, 0), c(2, 75, 0, 0), c(2, 100, 0, 0),
   c(5, 25, 0, 0), c(5, 50, 0, 0), c(5, 75, 0, 0), c(5, 100, 0, 0),
   # fertility control
@@ -109,13 +113,13 @@ for (name in names(vec)) { # segun tipo de vector
       if (n_fertility != 0) { mt <- c(mt, "f") }
       alternative <- if (length(mt) == 0) { "n" } else { paste(mt, collapse = " + ") }
       
-      me <- paste0(pmax(by_removal, by_fertility),"/",pmax(n_removal, n_fertility))
+      me <- paste0(pmax(by_removal, by_fertility),"_",pmax(n_removal, n_fertility))
       
       suffix <- paste(name.vec, alternative, me, sep = "_") 
 
-      #puma####
+      #puma mean estocastic####
       name="Puma"
-      data_puma<-read.csv("./data/data_predation_stochastic.csv",sep=";")
+      data_puma<-read.csv("./data/data_predation.csv",sep=";")
       proj.stoch(data=data_puma,ini.vec,
                  iterations=n_iterations,K=k_value,
                  vec_t_removal=vec_t_removal,
@@ -125,6 +129,20 @@ for (name in names(vec)) { # segun tipo de vector
                  dur_proj=durproj,
                  vec_fertility = vec_fertility)
       
+      # puma mean deterministic
+      name="Puma_mean"
+      data_puma_det<-data_puma
+      data_puma_det[,4]<-0
+      proj.stoch(data=data_puma_det,ini.vec,
+                 iterations=n_iterations,K=k_value,
+                 vec_t_removal=vec_t_removal,
+                 vec_t_fertility=vec_t_fertility,
+                 n_removal=n_removal,
+                 n_fertility=n_fertility,
+                 dur_proj=durproj,
+                 vec_fertility = vec_fertility)
+      
+      # puma max deterministic
       name="Puma_max"
       data_puma_max<-read.csv("./data/data_predation_deterministic_max.csv",sep=";")
       proj.stoch(data=data_puma_max,ini.vec,
@@ -136,9 +154,9 @@ for (name in names(vec)) { # segun tipo de vector
                  dur_proj=durproj,
                  vec_fertility = vec_fertility)
       
-      #No puma####
+      #No puma mean estocastic####
       name="NoPuma"
-      data_nopuma<-read.csv("./data/data_nopredation_stochastic.csv",sep=";")
+      data_nopuma<-read.csv("./data/data_nopredation.csv",sep=";")
       proj.stoch(data=data_nopuma,ini.vec,
                  iterations=n_iterations,K=k_value,
                  vec_t_removal=vec_t_removal,
@@ -148,6 +166,20 @@ for (name in names(vec)) { # segun tipo de vector
                  dur_proj=durproj,
                  vec_fertility = vec_fertility)
       
+      # no puma mean deterministic
+      name="NoPuma_mean"
+      data_nopuma_det<-data_nopuma
+      data_nopuma_det[,4]<-0
+      proj.stoch(data=data_nopuma,ini.vec,
+                 iterations=n_iterations,K=k_value,
+                 vec_t_removal=vec_t_removal,
+                 vec_t_fertility=vec_t_fertility,
+                 n_removal=n_removal,
+                 n_fertility=n_fertility,
+                 dur_proj=durproj,
+                 vec_fertility = vec_fertility)
+      
+      # no puma max deterministic
       name="NoPuma_max"
       data_nopuma_max<-read.csv("./data/data_nopredation_deterministic_max.csv",sep=";")
       proj.stoch(data=data_nopuma_max,ini.vec,
@@ -161,44 +193,47 @@ for (name in names(vec)) { # segun tipo de vector
       
       #Figure####
       
-      make_df <- function(proj, proj_max, label) {
-        df <- bind_rows(melt(proj), melt(proj_max))
+      make_df <- function(proj, proj_mean, proj_max, label) {
+        df <- bind_rows(melt(proj), melt(proj_mean),melt(proj_max))
         names(df) <- c("time", "stage", "proj", "iteration")
-        df$stage <- factor(df$stage, labels = c("f", "y", "j", "a"))
-        df$iteration <- as.factor(df$iteration)
         df$predation <- c(
           rep(label, nrow(melt(proj))),
+          rep(paste(label, "mean"), nrow(melt(proj_mean))),
           rep(paste(label, "max"), nrow(melt(proj_max))))
+        
+        df$stage <- factor(df$stage, labels = c("f", "y", "j", "a"))
+        df$iteration <- as.factor(df$iteration)
+        
         df <- dcast(df, time + stage + iteration ~ predation, value.var = "proj")
-        names(df)[4:5] <- c("proj", "proj_max")
+        names(df)[4:6] <- c("proj", "proj_max","proj_mean")
         df$predation <- label
         df
       }
       
-      df_NoPuma_all <- make_df(projNoPuma, projNoPuma_max, "Without predation")
-      df_Puma_all   <- make_df(projPuma, projPuma_max, "With predation")
+      df_NoPuma_all <- make_df(projNoPuma, projNoPuma_mean, projNoPuma_max, "Without puma")
+      df_Puma_all   <- make_df(projPuma, projPuma_mean, projPuma_max, "With puma")
       df_all <- rbind(df_NoPuma_all, df_Puma_all)
       
       # Figure 1: stage population size
       #ggplot(df_all, aes(x = time, y = proj, colour = predation)) +
-      #  geom_line(aes(group = interaction(iteration, predation)),
-      #    alpha = 2 / n_iterations) +
-      #  stat_summary(aes(group = predation),
-      #    geom = "line", fun = mean, linewidth = 1) +
-      #  stat_summary(aes(y = proj_max, group = predation),
-      #    geom = "line", fun = mean, linetype = "dashed", alpha = 0.5) +
+      #  geom_line(aes(group=interaction(iteration, predation)), alpha=1/n_iterations) +
+      #  stat_summary(geom = "line",fun.data = mean_se) +
+      #  stat_summary(aes(y=proj_max),geom = "line", fun = mean, linetype="dashed",alpha=1) +
+      #  stat_summary(aes(y=proj_mean),geom = "line", fun = mean, linetype="dotted",alpha=1) +
       #  facet_wrap(~stage, scales = "free_y") +
       #  labs(x = "Time (years)", y = "n", title = suffix, colour = NULL) +
-      #  theme_minimal()
-      #ggsave(paste0("./fig/fig_stage_puma_all", suffix, ".png"), width=180,height=140,units="mm", dpi = 600)
+      #  theme_minimal()+
+      #  theme(legend.position = "bottom", legend.title = element_blank())
+      #ggsave(paste0("./fig/fig_stage_all", suffix, ".png"), width=180,height=140,units="mm", dpi = 600)
       
       #Figure 2: adult size####
       df_ad<-df_all[df_all$stage=="a",]
-      
+     
       ggplot(data=df_ad,aes(x=time,y=proj, colour=predation)) +
         geom_line(aes(group=interaction(iteration, predation)), alpha=1/n_iterations) +
         stat_summary(geom = "line",fun.data = mean_se) +
-        stat_summary(aes(y=proj_max),geom = "line", fun = mean, linetype="dashed",alpha=0.3) +
+        stat_summary(aes(y=proj_max),geom = "line", fun = mean, linetype="dashed",alpha=1) +
+        stat_summary(aes(y=proj_mean),geom = "line", fun = mean, linetype="dotted",alpha=1) +
         labs(x = "Time (years)" , y = "Adults", title = suffix) +
         theme_minimal()+
         theme(legend.position = "bottom", legend.title = element_blank())
@@ -210,12 +245,14 @@ for (name in names(vec)) { # segun tipo de vector
         summarise(
           proj = sum(proj, na.rm = TRUE),
           proj_max = sum(proj_max, na.rm = TRUE),
+          proj_mean = sum(proj_mean, na.rm = TRUE),
           .groups = "drop")
-      
+    
       ggplot(data=df_T,aes(x=time,y=proj, colour=predation)) +
         geom_line(aes(group=interaction(iteration, predation)), alpha=1/n_iterations) +
         stat_summary(geom = "line",fun.data = mean_se) +
-        stat_summary(aes(y=proj_max),geom = "line", fun = mean, linetype="dashed",alpha=0.3) +
+        stat_summary(aes(y=proj_max),geom = "line", fun = mean, linetype="dashed") +
+        stat_summary(aes(y=proj_mean),geom = "line", fun = mean, linetype="dotted") +
         labs(x = "Time (years)" , y = "Population Size", title = suffix) +
         theme_minimal() +
         theme(legend.position = "bottom", legend.title = element_blank())
@@ -226,12 +263,13 @@ for (name in names(vec)) { # segun tipo de vector
       ntotal <- df_all %>%
         group_by(iteration, time, predation) %>%
         summarise(
-          Mean = sum(proj, na.rm = TRUE),
+          Mean_sto = sum(proj, na.rm = TRUE),
+          Mean = sum(proj_mean, na.rm = TRUE),
           Max = sum(proj_max, na.rm = TRUE),
           .groups = "drop"
         ) %>%
         pivot_longer(
-          cols = c(Mean, Max),
+          cols = c(Mean_sto, Mean, Max),
           names_to = "rate",
           values_to = "n")
       
@@ -252,17 +290,18 @@ for (name in names(vec)) { # segun tipo de vector
           summarise(
             recovery = mean(recovery_time, na.rm = TRUE),
             sd = sd(recovery_time, na.rm = TRUE),
+            prop_no_recovery = mean(is.na(recovery_time)), # proporcion de iteraciones q nunca se recuperan
             .groups = "drop")
         
         recovery_t <- data.frame(
-          name.vec = rep(name.vec, 4),
-          alternative = rep(alternative, 4),
-          by_removal = rep(by_removal, 4),
-          n_removal = rep(n_removal, 4),
-          by_fertility = rep(by_fertility, 4),
-          n_fertility = rep(n_fertility, 4),
-          predation = c("With predation", "With predation", "Without predation", "Without predation"),
-          rate = c("Mean", "Max", "Mean", "Max"))
+          name.vec = rep(name.vec, 6),
+          alternative = rep(alternative, 6),
+          by_removal = rep(by_removal, 6),
+          n_removal = rep(n_removal, 6),
+          by_fertility = rep(by_fertility, 6),
+          n_fertility = rep(n_fertility, 6),
+          predation = rep(c("With puma", "Without puma"), each = 3),
+          rate = rep(c("Mean_sto", "Mean", "Max"), 2))
         
         recovery_t <- recovery_t %>%
           left_join(rec_t, by = c("predation","rate"))
@@ -270,67 +309,72 @@ for (name in names(vec)) { # segun tipo de vector
         recovery_df <- rbind(recovery_df, recovery_t)
         
       } else if (by_fertility != 50 && by_removal != 50) {
+      
         #remocion efectiva/tiempo
+        Er_puma <- sum(round(rowMeans(data.frame(loghistoryPuma))))/durproj
+        Er_puma_mean <- sum(round(rowMeans(data.frame(loghistoryPuma_mean))))/durproj
         Er_puma_max <- sum(round(rowMeans(data.frame(loghistoryPuma_max))))/durproj
-        Er_puma_mean <- sum(round(rowMeans(data.frame(loghistoryPuma))))/durproj
-        Er_nopuma_mean <- sum(round(rowMeans(data.frame(loghistoryNoPuma))))/durproj
+        Er_nopuma <- sum(round(rowMeans(data.frame(loghistoryNoPuma))))/durproj
+        Er_nopuma_mean <- sum(round(rowMeans(data.frame(loghistoryNoPuma_mean))))/durproj
         Er_nopuma_max <- sum(round(rowMeans(data.frame(loghistoryNoPuma_max))))/durproj
         
+        Ef_puma <- sum(round(rowMeans(data.frame(logvec_fertilityPuma))))/durproj
+        Ef_puma_mean <- sum(round(rowMeans(data.frame(logvec_fertilityPuma_mean))))/durproj
         Ef_puma_max <- sum(round(rowMeans(data.frame(logvec_fertilityPuma_max))))/durproj
-        Ef_puma_mean <- sum(round(rowMeans(data.frame(logvec_fertilityPuma))))/durproj
-        Ef_nopuma_mean <- sum(round(rowMeans(data.frame(logvec_fertilityNoPuma))))/durproj
+        Ef_nopuma <- sum(round(rowMeans(data.frame(logvec_fertilityNoPuma))))/durproj
+        Ef_nopuma_mean <- sum(round(rowMeans(data.frame(logvec_fertilityNoPuma_mean))))/durproj
         Ef_nopuma_max <- sum(round(rowMeans(data.frame(logvec_fertilityNoPuma_max))))/durproj
         
         #Rm y Re
-        Rm_iter <- ntotal %>%
-          group_by(iteration, predation, rate) %>%
+        Rm <- ntotal %>%
+          group_by(predation, rate, iteration) %>%
           summarise(
             dev_mean = mean(abs(n - nlowdensity), na.rm = TRUE),
-            Rm = 1 / dev_mean,
-            .groups = "drop")
-        
-        Rm <- Rm_iter %>%
-          group_by(predation, rate) %>%
-          summarise(
-            Rm = mean(Rm, na.rm = TRUE),
-            .groups = "drop")
-        
-        Re <- ntotal %>%
-          group_by(predation, rate, time) %>%
-          summarise(
-            prop_ext = mean(n == 0),
             .groups = "drop"
           ) %>%
           group_by(predation, rate) %>%
           summarise(
-            Re = mean(prop_ext)*100,
+            dev_mean = mean(dev_mean, na.rm = TRUE),
+            Rm = 1 / dev_mean,
             .groups = "drop"
           )
         
-        ext50 <- ntotal %>%
+        Re <- ntotal %>%
+          group_by(predation, rate, time) %>%
+          summarise(
+            prop_qext = mean(n < 1),
+            .groups = "drop"
+          ) %>%
+          group_by(predation, rate) %>%
+          summarise(
+            Re = mean(prop_qext)*100,
+            .groups = "drop"
+          )
+        
+        Pqext_end <- ntotal %>%
           filter(time == 50) %>%
           group_by(predation, rate) %>%
           summarise(
-            ext50 = mean(n == 0, na.rm = TRUE),
+            Pqext50 = mean(n < 1, na.rm = TRUE),
             .groups = "drop"
           )
         
         #dataframe
         ind <- data.frame(
-          name.vec = rep(name.vec, 4),
-          alternative = rep(alternative, 4),
-          by_removal = rep(by_removal, 4),
-          n_removal = rep(n_removal, 4),
-          by_fertility = rep(by_fertility, 4),
-          n_fertility = rep(n_fertility, 4),
-          predation = c("With predation", "With predation", "Without predation", "Without predation"),
-          rate = c("Mean", "Max", "Mean", "Max"),
-          Er = c(Er_puma_mean, Er_puma_max,
-                 Er_nopuma_mean, Er_nopuma_max),
-          Ef = c(Ef_puma_mean, Ef_puma_max,
-                 Ef_nopuma_mean, Ef_nopuma_max)) %>%
+          name.vec = rep(name.vec, 6),
+          alternative = rep(alternative, 6),
+          by_removal = rep(by_removal, 6),
+          n_removal = rep(n_removal, 6),
+          by_fertility = rep(by_fertility, 6),
+          n_fertility = rep(n_fertility, 6),
+          predation = rep(c("With puma", "Without puma"), each = 3),
+          rate = rep(c("Mean_sto", "Mean", "Max"), 2),
+          Er = c(Er_puma, Er_puma_mean, Er_puma_max,
+                 Er_nopuma, Er_nopuma_mean, Er_nopuma_max),
+          Ef = c(Ef_puma, Ef_puma_mean, Ef_puma_max,
+                 Ef_nopuma, Ef_nopuma_mean, Ef_nopuma_max)) %>%
           left_join(Rm, by = c("predation", "rate")) %>%
-          left_join(ext50, by = c("predation", "rate")) %>%
+          left_join(Pqext_end, by = c("predation", "rate")) %>%
           left_join(Re, by = c("predation", "rate"))
         
         #IER = Re/(Er+Ef)  IEM = Rm/(Er + Ef)
@@ -338,7 +382,7 @@ for (name in names(vec)) { # segun tipo de vector
           group_by(name.vec, alternative, by_removal,n_removal,by_fertility,n_fertility,predation,rate) %>%
           summarise(
             Erf = Er+Ef,
-            ETI = Re * exp(-0.1*Erf), 
+            ETI = Re * exp(-0.01*Erf),
             MTI = Rm * exp(-0.01*Erf),
             .groups = "drop")
         
@@ -346,11 +390,12 @@ for (name in names(vec)) { # segun tipo de vector
           left_join(EMTI, by = c("name.vec", "alternative","by_removal","n_removal","by_fertility","n_fertility","predation","rate"))
         index <- rbind(index, ind)
       }
+      write.csv2(df_all,paste0("./table/df_all/",suffix,".csv"), row.names = FALSE, quote = FALSE)
       counter <- counter + 1
       print(paste0(suffix, " completed: ", counter, " of ", n_alternatives))
     }
   }
 }
 
-write.csv2(index,"./table/index_19-05.csv", row.names = FALSE, quote = FALSE)
-write.csv2(recovery_df,"./table/recovery_df_19-05.csv", row.names = FALSE, quote = FALSE)
+write.csv2(index,"./table/index.csv", row.names = FALSE, quote = FALSE)
+write.csv2(recovery_df,"./table/recovery_df.csv", row.names = FALSE, quote = FALSE)

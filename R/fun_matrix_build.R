@@ -65,7 +65,7 @@ matrix_build_stoch <- function(parameters){
   
   #correcion adultos (es necesario truncarlos, ponerle un limite)
   
-  d.a<-25 #cuanto vive un caballo en la naturaleza
+  d.a<-26 #cuanto vive un caballo en la naturaleza: 29 años 
   
   mu.ac<-sup_correction(sup=mu.a,d=d.a)[[1]]
   

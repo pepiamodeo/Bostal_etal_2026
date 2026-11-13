@@ -12,11 +12,12 @@ fun_removal <- function(type=removal_type,
   # fixed
   if(type=="fixed"){
     if (t %in% vec_t_removal) {
-      tmp <- proj[t, 4] - n_removal
-      proj[t, 4] <- tmp
+      tmp <- proj[t-1, 4] - n_removal
+      proj[t-1, 4] <- tmp
       
-      if (proj[t, 4] < 0) {
-        proj[t, 4] <- 0
+      # correccion si da negativo
+      if (proj[t-1, 4] < 0) {
+        proj[t-1, 4] <- 0
         vec_removal[t] <<- tmp + n_removal
       }else{
         vec_removal[t] <<- n_removal
@@ -26,7 +27,7 @@ fun_removal <- function(type=removal_type,
   }else{ # proportional
     
     if (t %in% vec_t_removal) {
-      Nvec <- proj[t, ]
+      Nvec <- proj[t-1, ]
       #Nvec <- c(0, 0, 0, 0)
       Ntot <- sum(Nvec)
       #n_removal <- 100
@@ -43,11 +44,11 @@ fun_removal <- function(type=removal_type,
         
         real_removal[4] <- real_removal[4] + extra_adults #NUEVO
         
-        proj[t, ] <- Nvec - real_removal # aplicar remoción
+        proj[t-1, ] <- Nvec - real_removal # aplicar remoción
         vec_removal[t] <<- sum(real_removal)
         
       }else{
-        proj[t, ] <- rep(0, length(Nvec))
+        proj[t-1, ] <- rep(0, length(Nvec))
         vec_removal[t] <<- 0
       }
     }

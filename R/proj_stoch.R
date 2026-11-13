@@ -5,9 +5,10 @@ source("./R/fun_removal.R")
 # function to create stochastic projection and obtain the outcomes
 
 # la funcion esta estructurada en el siguiente orden
-## 1) densodependencia
-## 2) proyeccion de la siguiente generacion
-## 3) aplicacion de la remoción de individuos
+## 1) aplicacion de la remoción de individuos
+## 2) densodependencia
+## 3) Fertilidad
+## 4) proyeccion de la siguiente generacion
 
 proj.stoch <- function(data, ini.vec,               # insumos basicos
                        dur_proj = 50,               # años de proyección, por defecto 50
@@ -48,18 +49,28 @@ proj.stoch <- function(data, ini.vec,               # insumos basicos
       mat <- matrix_build_stoch(parameters=data) #
       
       # Modificaciones ADHOC (densodependencia, control)
-
-      # 1) densodependencia (modificacion de la matriz previo a proyección)
-      Nad <- proj[t-1, 4] # adults del tiempo anterior
+      
+      # REVISION 20261023
+      # 1) Remoción (Modificacion del vector proyectado en tiempo anterior)
+      # Apica remocion en t-1
+      
+      proj.tmp <- fun_removal(type=removal_type,
+                          t=t,# REVISION20261023
+                          proj=proj,
+                          n_removal=n_removal, 
+                          vec_t_removal=vec_t_removal)
+      
+      # 2) densodependencia (modificacion de la matriz previo a proyección)
+      Nad <- proj.tmp[t-1, 4] # adults del tiempo anterior
    
       # funcion que aplica densodependencia
       mat<-mat*fun_densdep_feedback(Nad=Nad)
       
       #correccion de fecundidad segun datos historicos Ransom et al., 2016
-      mat[1,4] <- min(0.451, mat[1,4]) #NEW NEW
+      mat[1,4] <- min(0.41, mat[1,4]) #NEW NEW
       mat[1,4] <- max(0.115, mat[1,4]) #NEW NEW
       
-      # 1.1) control de fertilidad
+      # 3) control de fertilidad
 
       if (t %in% vec_t_fertility) {
         # evitar reproducción negativa
@@ -72,31 +83,21 @@ proj.stoch <- function(data, ini.vec,               # insumos basicos
         
         # solo ajustar supervivencia si hay adultos
         if (!is.na(Nad) && Nad > 0) {
-          mat[4,4] <- mat[4,4] * ((Nad - n_fertility)/Nad) +
-            mat[4,4] * (n_fertility/Nad) * 1.02 # FOLT ET AL 2023 cuando no estan preñadas, su supervivencia aumente 1.02 veces
+          mat[4,4] <- mat[4,4] * ((Nad - treated)/Nad) +
+            mat[4,4] * (treated/Nad) * 1.02 # FOLT ET AL 2023 cuando no estan preñadas, su supervivencia aumente 1.02 veces
           mat[4,4] <- min(1, mat[4,4]) # correccion para que la sup no supere 1
         }
-        proj[t,2:4] <- mat[2:4,1:4] %*% proj[t-1,] 
+        proj[t,2:4] <- mat[2:4,1:4] %*% proj.tmp[t-1,] 
         } else {
-        proj[t,] <- mat %*% proj[t-1,] # 2) proyección de siguiente generación sin control de Fecundidad
+        proj[t,] <- mat %*% proj.tmp[t-1,] # 2) proyección de siguiente generación sin control de Fecundidad
         vec_fertility[[t]] <<- 0 #NUEVONUEVO
         }
       
       rates_iter[[t]] <- mat #NUEVONUEVO para chequear como funciona el ajuste de densodep
       
-      
-      # 3) Remoción (Modificacion del vector proyectado post-proyección)
-      # Apica remocion en t
-      
-      
-      proj <- fun_removal(type=removal_type,
-                          t=t,
-                          proj=proj,
-                          n_removal=n_removal, 
-                          vec_t_removal=vec_t_removal)
-      
       #NUEVO redondear los valores para evitar valores con coma
-      proj[t, ] <- floor(proj[t, ])
+      #proj[t, ] <- floor(proj[t, ]) # REVISION 20261023
+      #proj[t, ] <- round(proj[t, ]) # REVISION 20261023
     }
 
       list.iterations[[i]]<-proj
