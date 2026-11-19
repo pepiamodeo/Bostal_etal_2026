@@ -18,26 +18,30 @@ index <- index %>%
            predation, rate) %>%
   mutate(
     management_effort = n_removal * by_removal + n_fertility * by_fertility,
+    
     scenario = case_when(
-      predation == "With puma" & rate == "Mean_sto" ~ "With puma\nStochastic mean",
-      predation == "With puma" & rate == "Mean" ~ "With puma\nDeterministic mean",
-      predation == "With puma" & rate == "Max" ~ "With puma\nDeterministic max",
-      predation == "Without puma" & rate == "Mean_sto" ~ "Without puma\nStochastic mean",
-      predation == "Without puma" & rate == "Mean" ~ "Without puma\nDeterministic mean",
-      predation == "Without puma" & rate == "Max" ~ "Without puma\nDeterministic max"
+      predation == "Without puma" & rate == "Max"     ~ 1,
+      predation == "Without puma" & rate == "Mean"    ~ 2,
+      predation == "Without puma" & rate == "Mean_sto" ~ 3,
+      predation == "With puma" & rate == "Max"        ~ 4,
+      predation == "With puma" & rate == "Mean"       ~ 5,
+      predation == "With puma" & rate == "Mean_sto"   ~ 6
     ),
-    scenario = factor(scenario, levels = c(
-      "Without puma\nDeterministic max",
-      "Without puma\nDeterministic mean",
-      "Without puma\nStochastic mean",
-      "With puma\nDeterministic max",
-      "With puma\nDeterministic mean",
-      "With puma\nStochastic mean"
-    )),
+    
+    scenario = factor(scenario, levels = 1:6),
+    
     alt_me = paste0(alternative, " ", pmax(by_removal, by_fertility), "/", pmax(n_removal, n_fertility))
   ) %>%
   ungroup()
 
+labels_scenario <- c(
+  "1" = "Without puma\nDeterministic\nmax",
+  "2" = "Without puma\nDeterministic\nmean",
+  "3" = "Without puma\nStochastic\nmean",
+  "4" = "With puma\nDeterministic\nmax",
+  "5" = "With puma\nDeterministic\nmean",
+  "6" = "With puma\nStochastic\nmean"
+)
 
 eti_10 <- index %>%
   filter(name.vec == "v2026") %>%
@@ -87,37 +91,15 @@ eti_plot <- eti_plot %>% arrange(letter)
 
 
 ordenes <- list(
-  
-  A = c("Without puma\nDeterministic max", "Without puma\nDeterministic mean", "Without puma\nStochastic mean",
-        "With puma\nDeterministic max", "With puma\nDeterministic mean", "With puma\nStochastic mean"),
-  
-  B = c("With puma\nDeterministic max", "With puma\nDeterministic mean", "With puma\nStochastic mean",
-        "Without puma\nDeterministic max", "Without puma\nDeterministic mean", "Without puma\nStochastic mean"),
-  
-  C = c("Without puma\nStochastic mean", "Without puma\nDeterministic mean", "Without puma\nDeterministic max",
-        "With puma\nStochastic mean", "With puma\nDeterministic mean", "With puma\nDeterministic max"),
-  
-  D = c("With puma\nStochastic mean", "With puma\nDeterministic mean", "With puma\nDeterministic max",
-        "Without puma\nStochastic mean", "Without puma\nDeterministic mean", "Without puma\nDeterministic max"),
-  
-  E = c("Without puma\nDeterministic max", "With puma\nDeterministic max", 
-        "Without puma\nDeterministic mean", "With puma\nDeterministic mean",
-        "Without puma\nStochastic mean", "With puma\nStochastic mean"),
-  
-  F = c("With puma\nDeterministic max", "Without puma\nDeterministic max",
-        "With puma\nDeterministic mean", "Without puma\nDeterministic mean",
-        "With puma\nStochastic mean", "Without puma\nStochastic mean"),
-  
-  G = c("Without puma\nStochastic mean", "With puma\nStochastic mean",
-        "Without puma\nDeterministic mean", "With puma\nDeterministic mean",
-        "Without puma\nDeterministic max", "With puma\nDeterministic max"),
-  
-  H = c("With puma\nStochastic mean", "Without puma\nStochastic mean",
-        "With puma\nDeterministic mean", "Without puma\nDeterministic mean",
-        "With puma\nDeterministic max", "Without puma\nDeterministic max"),
-  
-  I = c("Without puma\nDeterministic max", "Without puma\nStochastic mean", "Without puma\nDeterministic mean", 
-        "With puma\nDeterministic max", "With puma\nStochastic mean", "With puma\nDeterministic mean"))
+  A = c(1, 2, 3, 4, 5, 6),
+  B = c(4, 5, 6, 1, 2, 3),
+  C = c(3, 2, 1, 6, 5, 4),
+  D = c(6, 5, 4, 3, 2, 1),
+  E = c(1, 4, 2, 5, 3, 6),
+  F = c(4, 1, 5, 2, 6, 3),
+  G = c(3, 6, 2, 5, 1, 4),
+  H = c(6, 3, 5, 2, 4, 1),
+  I = c(1, 3, 2, 4, 6, 5))
 
 eti_rank_plot <- ggplot(eti_plot, aes(x = scenario, y = rank, 
                                       group = alt_me, label = letter)) +
@@ -126,7 +108,11 @@ eti_rank_plot <- ggplot(eti_plot, aes(x = scenario, y = rank,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
   scale_y_reverse(breaks = 1:10) +
-  scale_x_discrete(limits = ordenes[["I"]], expand = c(0.05, 0.05)) +
+  scale_x_discrete(
+    limits = as.character(ordenes[["I"]]),
+    labels = labels_scenario,
+    expand = c(0.05, 0.05)
+  ) +
   coord_cartesian(ylim = c(1,10)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
@@ -152,7 +138,7 @@ eti_rank_plot <- ggplot(eti_plot, aes(x = scenario, y = rank,
     legend.justification = "top")
 
 eti_rank_plot
-ggsave(plot=eti_rank_plot,"./fig/eti_rank_plot_6_11.tiff",width=150,height=100,units="mm",
+ggsave(plot=eti_rank_plot,"./fig/eti_rank_plot_18_11.tiff",width=150,height=100,units="mm",
        dpi = 600,compression="lzw")
 
 #IEM####
@@ -193,7 +179,11 @@ mti_rank_plot <- ggplot(mti_plot, aes(x = scenario, y = rank_plot,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
   scale_y_reverse(breaks = 1:6) +
-  scale_x_discrete(limits = ordenes[["I"]], expand = c(0.05, 0.05), drop = FALSE) + 
+  scale_x_discrete(
+    limits = as.character(ordenes[["I"]]),
+    labels = labels_scenario,
+    expand = c(0.05, 0.05),
+    drop = FALSE) + 
   coord_cartesian(ylim = c(1,6)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
@@ -218,22 +208,20 @@ mti_rank_plot <- ggplot(mti_plot, aes(x = scenario, y = rank_plot,
     legend.justification = "top")
 
 mti_rank_plot        
-ggsave(plot=mti_rank_plot,"./fig/mti_rank_plot_6_11.tiff",width=150,height=80,units="mm",
+ggsave(plot=mti_rank_plot,"./fig/mti_rank_plot_18_11.tiff",width=150,height=80,units="mm",
        dpi = 600,compression="lzw")
 
 
 
 #SPANISH
 es_escenarios <- c(
-  "Without puma\nDeterministic max" = "Sin puma\nMáximo\ndeterminístico",
-  "Without puma\nDeterministic mean" = "Sin puma\nMedia\ndeterminística",
-  "Without puma\nStochastic mean" = "Sin puma\nMedia\nestocástica",
-  "With puma\nDeterministic max" = "Con puma\nMáximo\ndeterminístico",
-  "With puma\nDeterministic mean" = "Con puma\nMedia\ndeterminística",
-  "With puma\nStochastic mean" = "Con puma\nMedia\nestocástica"
+  "1" = "Sin puma\nMáximo\ndeterminístico",
+  "2" = "Sin puma\nMedia\ndeterminística",
+  "3" = "Sin puma\nMedia\nestocástica",
+  "4" = "Con puma\nMáximo\ndeterminístico",
+  "5" = "Con puma\nMedia\ndeterminística",
+  "6" = "Con puma\nMedia\nestocástica"
 )
-
-
 
 eti_rank_plot_es <- ggplot(eti_plot, aes(x = scenario, y = rank, 
                                       group = alt_me, label = letter)) +
@@ -242,7 +230,7 @@ eti_rank_plot_es <- ggplot(eti_plot, aes(x = scenario, y = rank,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
   scale_y_reverse(breaks = 1:10) +
-  scale_x_discrete(limits = ordenes[["I"]], labels = es_escenarios, expand = c(0.05, 0.05)) +
+  scale_x_discrete(limits = as.character(ordenes[["I"]]), labels = es_escenarios, expand = c(0.05, 0.05)) +
   coord_cartesian(ylim = c(1,10)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",
@@ -279,7 +267,7 @@ mti_rank_plot_es <- ggplot(mti_plot, aes(x = scenario, y = rank_plot,
              key_glyph = draw_key_text) +
   geom_text(size = 3) +
   scale_y_reverse(breaks = 1:6) +
-  scale_x_discrete(limits = ordenes[["I"]], labels = es_escenarios, expand = c(0.05, 0.05)) +
+  scale_x_discrete(limits = as.character(ordenes[["I"]]), labels = es_escenarios, expand = c(0.05, 0.05)) +
   coord_cartesian(ylim = c(1,6)) +
   scale_color_manual(
     values = c("#a6cee3","#1f78b4","#b2df8a","#33a02c",

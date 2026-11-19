@@ -1,121 +1,121 @@
-name.vec;alternative;by_removal;n_removal;by_fertility;n_fertility;predation;rate;recovery;sd
-v2026;rf;50;25;0;0;With puma;Mean_sto;NA;NA
-v2026;rf;50;25;0;0;With puma;Mean;NA;NA
-v2026;rf;50;25;0;0;With puma;Max;NA;NA
-v2026;rf;50;25;0;0;Without puma;Mean_sto;2,086;1,6443880393776
-v2026;rf;50;25;0;0;Without puma;Mean;1,998;1,42480037627187
-v2026;rf;50;25;0;0;Without puma;Max;1;0
-v2026;rp;50;25;0;0;With puma;Mean_sto;NA;NA
-v2026;rp;50;25;0;0;With puma;Mean;NA;NA
-v2026;rp;50;25;0;0;With puma;Max;NA;NA
-v2026;rp;50;25;0;0;Without puma;Mean_sto;2,112;1,52055258387227
-v2026;rp;50;25;0;0;Without puma;Mean;2,042;1,46305059176644
-v2026;rp;50;25;0;0;Without puma;Max;1;0
-v2026;rf;50;50;0;0;With puma;Mean_sto;NA;NA
-v2026;rf;50;50;0;0;With puma;Mean;NA;NA
-v2026;rf;50;50;0;0;With puma;Max;NA;NA
-v2026;rf;50;50;0;0;Without puma;Mean_sto;3,082;1,72430346658869
-v2026;rf;50;50;0;0;Without puma;Mean;3,184;1,91454301333237
-v2026;rf;50;50;0;0;Without puma;Max;1;0
-v2026;rp;50;50;0;0;With puma;Mean_sto;NA;NA
-v2026;rp;50;50;0;0;With puma;Mean;NA;NA
-v2026;rp;50;50;0;0;With puma;Max;NA;NA
-v2026;rp;50;50;0;0;Without puma;Mean_sto;3,042;1,78510762096768
-v2026;rp;50;50;0;0;Without puma;Mean;2,914;1,72875133038984
-v2026;rp;50;50;0;0;Without puma;Max;1;0
-v2026;rf;50;75;0;0;With puma;Mean_sto;NA;NA
-v2026;rf;50;75;0;0;With puma;Mean;NA;NA
-v2026;rf;50;75;0;0;With puma;Max;NA;NA
-v2026;rf;50;75;0;0;Without puma;Mean_sto;5,008;2,09588202026874
-v2026;rf;50;75;0;0;Without puma;Mean;4,814;1,91800978179103
-v2026;rf;50;75;0;0;Without puma;Max;2;0
-v2026;rp;50;75;0;0;With puma;Mean_sto;NA;NA
-v2026;rp;50;75;0;0;With puma;Mean;NA;NA
-v2026;rp;50;75;0;0;With puma;Max;NA;NA
-v2026;rp;50;75;0;0;Without puma;Mean_sto;4,598;1,90042606761667
-v2026;rp;50;75;0;0;Without puma;Mean;4,54;1,89831694256488
-v2026;rp;50;75;0;0;Without puma;Max;2;0
-v2026;rf;50;100;0;0;With puma;Mean_sto;NA;NA
-v2026;rf;50;100;0;0;With puma;Mean;NA;NA
-v2026;rf;50;100;0;0;With puma;Max;NA;NA
-v2026;rf;50;100;0;0;Without puma;Mean_sto;6,748;2,09410279906841
-v2026;rf;50;100;0;0;Without puma;Mean;6,55;1,97060055137162
-v2026;rf;50;100;0;0;Without puma;Max;3;0
-v2026;rp;50;100;0;0;With puma;Mean_sto;NA;NA
-v2026;rp;50;100;0;0;With puma;Mean;NA;NA
-v2026;rp;50;100;0;0;With puma;Max;NA;NA
-v2026;rp;50;100;0;0;Without puma;Mean_sto;6,314;2,05617599427648
-v2026;rp;50;100;0;0;Without puma;Mean;6,318;2,06140116170992
-v2026;rp;50;100;0;0;Without puma;Max;3;0
-v2026;f;0;0;50;25;With puma;Mean_sto;NA;NA
-v2026;f;0;0;50;25;With puma;Mean;NA;NA
-v2026;f;0;0;50;25;With puma;Max;NA;NA
-v2026;f;0;0;50;25;Without puma;Mean_sto;1,674;1,26289897761274
-v2026;f;0;0;50;25;Without puma;Mean;1,66;1,27422419322079
-v2026;f;0;0;50;25;Without puma;Max;1;0
-v2026;f;0;0;50;50;With puma;Mean_sto;NA;NA
-v2026;f;0;0;50;50;With puma;Mean;NA;NA
-v2026;f;0;0;50;50;With puma;Max;NA;NA
-v2026;f;0;0;50;50;Without puma;Mean_sto;1,818;1,27755245706825
-v2026;f;0;0;50;50;Without puma;Mean;1,782;1,41933259316484
-v2026;f;0;0;50;50;Without puma;Max;1;0
-v2026;f;0;0;50;75;With puma;Mean_sto;NA;NA
-v2026;f;0;0;50;75;With puma;Mean;NA;NA
-v2026;f;0;0;50;75;With puma;Max;NA;NA
-v2026;f;0;0;50;75;Without puma;Mean_sto;1,976;1,35761195503019
-v2026;f;0;0;50;75;Without puma;Mean;1,95;1,35172271883594
-v2026;f;0;0;50;75;Without puma;Max;1;0
-v2026;f;0;0;50;100;With puma;Mean_sto;NA;NA
-v2026;f;0;0;50;100;With puma;Mean;NA;NA
-v2026;f;0;0;50;100;With puma;Max;NA;NA
-v2026;f;0;0;50;100;Without puma;Mean_sto;2,308;1,5792796612687
-v2026;f;0;0;50;100;Without puma;Mean;2,272;1,46776178220398
-v2026;f;0;0;50;100;Without puma;Max;1;0
-v2026;rf + f;50;12;50;12;With puma;Mean_sto;NA;NA
-v2026;rf + f;50;12;50;12;With puma;Mean;NA;NA
-v2026;rf + f;50;12;50;12;With puma;Max;NA;NA
-v2026;rf + f;50;12;50;12;Without puma;Mean_sto;1,718;1,2703162625164
-v2026;rf + f;50;12;50;12;Without puma;Mean;1,78;1,33234766506389
-v2026;rf + f;50;12;50;12;Without puma;Max;1;0
-v2026;rp + f;50;12;50;12;With puma;Mean_sto;NA;NA
-v2026;rp + f;50;12;50;12;With puma;Mean;NA;NA
-v2026;rp + f;50;12;50;12;With puma;Max;NA;NA
-v2026;rp + f;50;12;50;12;Without puma;Mean_sto;1,784;1,33450583049429
-v2026;rp + f;50;12;50;12;Without puma;Mean;1,71;1,14215104869543
-v2026;rp + f;50;12;50;12;Without puma;Max;1;0
-v2026;rf + f;50;25;50;25;With puma;Mean_sto;NA;NA
-v2026;rf + f;50;25;50;25;With puma;Mean;NA;NA
-v2026;rf + f;50;25;50;25;With puma;Max;NA;NA
-v2026;rf + f;50;25;50;25;Without puma;Mean_sto;2,07;1,50653220296053
-v2026;rf + f;50;25;50;25;Without puma;Mean;2,102;1,401257665846
-v2026;rf + f;50;25;50;25;Without puma;Max;1;0
-v2026;rp + f;50;25;50;25;With puma;Mean_sto;NA;NA
-v2026;rp + f;50;25;50;25;With puma;Mean;NA;NA
-v2026;rp + f;50;25;50;25;With puma;Max;NA;NA
-v2026;rp + f;50;25;50;25;Without puma;Mean_sto;2,272;1,48135235836017
-v2026;rp + f;50;25;50;25;Without puma;Mean;2,322;1,52937699341135
-v2026;rp + f;50;25;50;25;Without puma;Max;1;0
-v2026;rf + f;50;37;50;37;With puma;Mean_sto;NA;NA
-v2026;rf + f;50;37;50;37;With puma;Mean;NA;NA
-v2026;rf + f;50;37;50;37;With puma;Max;NA;NA
-v2026;rf + f;50;37;50;37;Without puma;Mean_sto;2,98;1,89070079573633
-v2026;rf + f;50;37;50;37;Without puma;Mean;3,028;1,83574396684931
-v2026;rf + f;50;37;50;37;Without puma;Max;1;0
-v2026;rp + f;50;37;50;37;With puma;Mean_sto;NA;NA
-v2026;rp + f;50;37;50;37;With puma;Mean;NA;NA
-v2026;rp + f;50;37;50;37;With puma;Max;NA;NA
-v2026;rp + f;50;37;50;37;Without puma;Mean_sto;2,96;1,74828859918839
-v2026;rp + f;50;37;50;37;Without puma;Mean;3,136;1,79330306187869
-v2026;rp + f;50;37;50;37;Without puma;Max;1;0
-v2026;rf + f;50;50;50;50;With puma;Mean_sto;NA;NA
-v2026;rf + f;50;50;50;50;With puma;Mean;NA;NA
-v2026;rf + f;50;50;50;50;With puma;Max;NA;NA
-v2026;rf + f;50;50;50;50;Without puma;Mean_sto;3,674;1,92018181336893
-v2026;rf + f;50;50;50;50;Without puma;Mean;3,806;1,80523731501624
-v2026;rf + f;50;50;50;50;Without puma;Max;2;0
-v2026;rp + f;50;50;50;50;With puma;Mean_sto;NA;NA
-v2026;rp + f;50;50;50;50;With puma;Mean;NA;NA
-v2026;rp + f;50;50;50;50;With puma;Max;NA;NA
-v2026;rp + f;50;50;50;50;Without puma;Mean_sto;3,966;2,01120209519965
-v2026;rp + f;50;50;50;50;Without puma;Mean;3,71;1,79787784052725
-v2026;rp + f;50;50;50;50;Without puma;Max;2;0
+name.vec;alternative;by_removal;n_removal;by_fertility;n_fertility;predation;rate;recovery;sd;prop_no_recovery
+v2026;rf;50;25;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rf;50;25;0;0;With puma;Mean;NA;NA;1
+v2026;rf;50;25;0;0;With puma;Max;NA;NA;1
+v2026;rf;50;25;0;0;Without puma;Mean_sto;2,086;1,6443880393776;0
+v2026;rf;50;25;0;0;Without puma;Mean;1,998;1,42480037627187;0
+v2026;rf;50;25;0;0;Without puma;Max;1;0;0
+v2026;rp;50;25;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rp;50;25;0;0;With puma;Mean;NA;NA;1
+v2026;rp;50;25;0;0;With puma;Max;NA;NA;1
+v2026;rp;50;25;0;0;Without puma;Mean_sto;2,112;1,52055258387227;0
+v2026;rp;50;25;0;0;Without puma;Mean;2,042;1,46305059176644;0
+v2026;rp;50;25;0;0;Without puma;Max;1;0;0
+v2026;rf;50;50;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rf;50;50;0;0;With puma;Mean;NA;NA;1
+v2026;rf;50;50;0;0;With puma;Max;NA;NA;1
+v2026;rf;50;50;0;0;Without puma;Mean_sto;3,082;1,72430346658869;0
+v2026;rf;50;50;0;0;Without puma;Mean;3,184;1,91454301333237;0
+v2026;rf;50;50;0;0;Without puma;Max;1;0;0
+v2026;rp;50;50;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rp;50;50;0;0;With puma;Mean;NA;NA;1
+v2026;rp;50;50;0;0;With puma;Max;NA;NA;1
+v2026;rp;50;50;0;0;Without puma;Mean_sto;3,042;1,78510762096768;0
+v2026;rp;50;50;0;0;Without puma;Mean;2,914;1,72875133038984;0
+v2026;rp;50;50;0;0;Without puma;Max;1;0;0
+v2026;rf;50;75;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rf;50;75;0;0;With puma;Mean;NA;NA;1
+v2026;rf;50;75;0;0;With puma;Max;NA;NA;1
+v2026;rf;50;75;0;0;Without puma;Mean_sto;5,008;2,09588202026874;0
+v2026;rf;50;75;0;0;Without puma;Mean;4,814;1,91800978179103;0
+v2026;rf;50;75;0;0;Without puma;Max;2;0;0
+v2026;rp;50;75;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rp;50;75;0;0;With puma;Mean;NA;NA;1
+v2026;rp;50;75;0;0;With puma;Max;NA;NA;1
+v2026;rp;50;75;0;0;Without puma;Mean_sto;4,598;1,90042606761667;0
+v2026;rp;50;75;0;0;Without puma;Mean;4,54;1,89831694256488;0
+v2026;rp;50;75;0;0;Without puma;Max;2;0;0
+v2026;rf;50;100;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rf;50;100;0;0;With puma;Mean;NA;NA;1
+v2026;rf;50;100;0;0;With puma;Max;NA;NA;1
+v2026;rf;50;100;0;0;Without puma;Mean_sto;6,748;2,09410279906841;0
+v2026;rf;50;100;0;0;Without puma;Mean;6,55;1,97060055137162;0
+v2026;rf;50;100;0;0;Without puma;Max;3;0;0
+v2026;rp;50;100;0;0;With puma;Mean_sto;NA;NA;1
+v2026;rp;50;100;0;0;With puma;Mean;NA;NA;1
+v2026;rp;50;100;0;0;With puma;Max;NA;NA;1
+v2026;rp;50;100;0;0;Without puma;Mean_sto;6,314;2,05617599427648;0
+v2026;rp;50;100;0;0;Without puma;Mean;6,318;2,06140116170992;0
+v2026;rp;50;100;0;0;Without puma;Max;3;0;0
+v2026;f;0;0;50;25;With puma;Mean_sto;NA;NA;1
+v2026;f;0;0;50;25;With puma;Mean;NA;NA;1
+v2026;f;0;0;50;25;With puma;Max;NA;NA;1
+v2026;f;0;0;50;25;Without puma;Mean_sto;1,674;1,26289897761274;0
+v2026;f;0;0;50;25;Without puma;Mean;1,66;1,27422419322079;0
+v2026;f;0;0;50;25;Without puma;Max;1;0;0
+v2026;f;0;0;50;50;With puma;Mean_sto;NA;NA;1
+v2026;f;0;0;50;50;With puma;Mean;NA;NA;1
+v2026;f;0;0;50;50;With puma;Max;NA;NA;1
+v2026;f;0;0;50;50;Without puma;Mean_sto;1,818;1,27755245706825;0
+v2026;f;0;0;50;50;Without puma;Mean;1,782;1,41933259316484;0
+v2026;f;0;0;50;50;Without puma;Max;1;0;0
+v2026;f;0;0;50;75;With puma;Mean_sto;NA;NA;1
+v2026;f;0;0;50;75;With puma;Mean;NA;NA;1
+v2026;f;0;0;50;75;With puma;Max;NA;NA;1
+v2026;f;0;0;50;75;Without puma;Mean_sto;1,976;1,35761195503019;0
+v2026;f;0;0;50;75;Without puma;Mean;1,95;1,35172271883594;0
+v2026;f;0;0;50;75;Without puma;Max;1;0;0
+v2026;f;0;0;50;100;With puma;Mean_sto;NA;NA;1
+v2026;f;0;0;50;100;With puma;Mean;NA;NA;1
+v2026;f;0;0;50;100;With puma;Max;NA;NA;1
+v2026;f;0;0;50;100;Without puma;Mean_sto;2,308;1,5792796612687;0
+v2026;f;0;0;50;100;Without puma;Mean;2,272;1,46776178220398;0
+v2026;f;0;0;50;100;Without puma;Max;1;0;0
+v2026;rf + f;50;12;50;12;With puma;Mean_sto;NA;NA;1
+v2026;rf + f;50;12;50;12;With puma;Mean;NA;NA;1
+v2026;rf + f;50;12;50;12;With puma;Max;NA;NA;1
+v2026;rf + f;50;12;50;12;Without puma;Mean_sto;1,718;1,2703162625164;0
+v2026;rf + f;50;12;50;12;Without puma;Mean;1,78;1,33234766506389;0
+v2026;rf + f;50;12;50;12;Without puma;Max;1;0;0
+v2026;rp + f;50;12;50;12;With puma;Mean_sto;NA;NA;1
+v2026;rp + f;50;12;50;12;With puma;Mean;NA;NA;1
+v2026;rp + f;50;12;50;12;With puma;Max;NA;NA;1
+v2026;rp + f;50;12;50;12;Without puma;Mean_sto;1,784;1,33450583049429;0
+v2026;rp + f;50;12;50;12;Without puma;Mean;1,71;1,14215104869543;0
+v2026;rp + f;50;12;50;12;Without puma;Max;1;0;0
+v2026;rf + f;50;25;50;25;With puma;Mean_sto;NA;NA;1
+v2026;rf + f;50;25;50;25;With puma;Mean;NA;NA;1
+v2026;rf + f;50;25;50;25;With puma;Max;NA;NA;1
+v2026;rf + f;50;25;50;25;Without puma;Mean_sto;2,07;1,50653220296053;0
+v2026;rf + f;50;25;50;25;Without puma;Mean;2,102;1,401257665846;0
+v2026;rf + f;50;25;50;25;Without puma;Max;1;0;0
+v2026;rp + f;50;25;50;25;With puma;Mean_sto;NA;NA;1
+v2026;rp + f;50;25;50;25;With puma;Mean;NA;NA;1
+v2026;rp + f;50;25;50;25;With puma;Max;NA;NA;1
+v2026;rp + f;50;25;50;25;Without puma;Mean_sto;2,272;1,48135235836017;0
+v2026;rp + f;50;25;50;25;Without puma;Mean;2,322;1,52937699341135;0
+v2026;rp + f;50;25;50;25;Without puma;Max;1;0;0
+v2026;rf + f;50;37;50;37;With puma;Mean_sto;NA;NA;1
+v2026;rf + f;50;37;50;37;With puma;Mean;NA;NA;1
+v2026;rf + f;50;37;50;37;With puma;Max;NA;NA;1
+v2026;rf + f;50;37;50;37;Without puma;Mean_sto;2,98;1,89070079573633;0
+v2026;rf + f;50;37;50;37;Without puma;Mean;3,028;1,83574396684931;0
+v2026;rf + f;50;37;50;37;Without puma;Max;1;0;0
+v2026;rp + f;50;37;50;37;With puma;Mean_sto;NA;NA;1
+v2026;rp + f;50;37;50;37;With puma;Mean;NA;NA;1
+v2026;rp + f;50;37;50;37;With puma;Max;NA;NA;1
+v2026;rp + f;50;37;50;37;Without puma;Mean_sto;2,96;1,74828859918839;0
+v2026;rp + f;50;37;50;37;Without puma;Mean;3,136;1,79330306187869;0
+v2026;rp + f;50;37;50;37;Without puma;Max;1;0;0
+v2026;rf + f;50;50;50;50;With puma;Mean_sto;NA;NA;1
+v2026;rf + f;50;50;50;50;With puma;Mean;NA;NA;1
+v2026;rf + f;50;50;50;50;With puma;Max;NA;NA;1
+v2026;rf + f;50;50;50;50;Without puma;Mean_sto;3,674;1,92018181336893;0
+v2026;rf + f;50;50;50;50;Without puma;Mean;3,806;1,80523731501624;0
+v2026;rf + f;50;50;50;50;Without puma;Max;2;0;0
+v2026;rp + f;50;50;50;50;With puma;Mean_sto;NA;NA;1
+v2026;rp + f;50;50;50;50;With puma;Mean;NA;NA;1
+v2026;rp + f;50;50;50;50;With puma;Max;NA;NA;1
+v2026;rp + f;50;50;50;50;Without puma;Mean_sto;3,966;2,01120209519965;0
+v2026;rp + f;50;50;50;50;Without puma;Mean;3,71;1,79787784052725;0
+v2026;rp + f;50;50;50;50;Without puma;Max;2;0;0

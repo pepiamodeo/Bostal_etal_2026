@@ -4,7 +4,7 @@ library(ggbreak)
 library(extrafont)
 loadfonts()
 
-recovery <- read.csv2("./table/recovery_df.csv", sep = ";", header = TRUE)
+recovery <- read.csv2("./table/recovery.csv", sep = ";", header = TRUE)
 
 recovery$name.vec <- as.factor(recovery$name.vec)
 recovery$alternative <- as.factor(recovery$alternative)
@@ -36,10 +36,12 @@ recovery_plot <- ggplot(df_plot, aes(x = factor(x), y = recovery, fill = rate)) 
     axis.text.x = element_text(vjust = 7),
     strip.text = element_text(family = "Calibri", size = 9),
     panel.grid.major.x = element_blank(),
-    legend.position = c(.9,.9))
+    legend.position = "bottom",
+    legend.justification = "center",
+    legend.direction = "horizontal")
 
 
-ggsave(plot=recovery_plot,"./fig/recovery_plot.tiff",width=145,height=70,units="mm",
+ggsave(plot=recovery_plot,"./fig/recovery_plot_18_11.tiff",width=145,height=80,units="mm",
        dpi = 600,compression="lzw")
 
 

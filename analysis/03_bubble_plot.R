@@ -50,6 +50,10 @@ bubble_Rm <- ggplot(plot_Rm,
                   size = 7/.pt, box.padding = 0.1, min.segment.length = 1, 
                   segment.size = 0.2, show.legend = FALSE) + 
   scale_y_log10() +
+  geom_hline(yintercept = 1/30, 
+             linetype = "dashed", 
+             color = "black", 
+             linewidth = 0.4) +
   theme_minimal() +
   theme(
     text = element_text(family = "Calibri", size = 9),
@@ -96,9 +100,14 @@ bubble_Re <- ggplot(plot_Re,
 
 
 #combined and save####
-combined_plot <- bubble_Rm/bubble_Re
+combined_plot <- (bubble_Rm/bubble_Re)+
+  plot_annotation(tag_levels = list(c("a)", "b)"))) &
+  theme(
+    plot.tag = element_text(family = "Calibri", size = 9),
+    plot.tag.position = c(0, 1)
+  )
 
-ggsave(plot=combined_plot,"./fig/Re_Rm-plot_6_11.tiff",width=150,height=190,units="mm",
+ggsave(plot=combined_plot,"./fig/Re_Rm-plot_18_11.tiff",width=150,height=190,units="mm",
        dpi = 600,compression="lzw")
 
 
@@ -161,7 +170,12 @@ bubble_Re_es <- ggplot(plot_Re,
     strip.text = element_blank(),
     strip.background = element_blank()) 
 
-combined_plot_es <- bubble_Rm_es/bubble_Re_es
+combined_plot_es <- (bubble_Rm_es / bubble_Re_es) +
+  plot_annotation(tag_levels = list(c("a)", "b)"))) &
+  theme(
+    plot.tag = element_text(family = "Calibri", size = 9),
+    plot.tag.position = c(0, 1)
+  )
 
-ggsave(plot=combined_plot_es,"./fig/Re_Rm-plot_es_6_11.tiff",width=150,height=190,units="mm",
+ggsave(plot=combined_plot_es,"./fig/Re_Rm-plot_es_12_11.tiff",width=150,height=190,units="mm",
        dpi = 600,compression="lzw")
